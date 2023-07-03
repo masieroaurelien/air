@@ -1,0 +1,32 @@
+# Créez un programme qui affiche le contenu d’un fichier donné en argument.
+
+=begin
+fichier = ARGV
+
+system("cat #{fichier}")
+=end
+
+def afficher_contenu_fichier(fichier)
+  if File.exist?(fichier)
+
+    if File.file?(fichier)
+
+      File.open(fichier, "r") do |file|
+
+        file.each_line do |line|
+          puts line
+        end
+      end
+    else
+      puts "Error: Le chemin ne correspond pas à un fichier"
+      exit
+    end
+  else
+    puts "Error: Fichier inexistant"
+    exit
+  end
+end
+
+fichier = ARGV[0]
+
+afficher_contenu_fichier(fichier)
