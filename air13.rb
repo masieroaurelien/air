@@ -1,27 +1,28 @@
-# Créez un programme qui vérifie si les exercices de votre épreuve de l’air sont présents dans le répertoire et qu’ils fonctionnent (sauf celui là). Créez au moins un test pour chaque exercice.
+# Créez un programme qui trie une liste de nombres. Votre programme devra implémenter l’algorithme du tri rapide (QuickSort).
 
-require 'colorize'
-
-# Méthode pour vérifier si un fichier existe dans le dossier actuel
-def file_exists?(file_name)
-  File.exist?(File.join(Dir.pwd, file_name))
+def my_quick_sort(array)
+    if array.size > 1
+        pivot = array.pop
+        left, right = array.partition {|num| num < pivot}
+        array = my_quick_sort(left) + [pivot] + my_quick_sort(right)
+    end
+    return array
 end
 
-count = 0
-
-files_to_check = []
-
-while count < 13
-  files_to_check << "air#{'%02d' % count}.rb"
-  count += 1
+def check_arguments(arguments)
+    if arguments.size < 1
+        puts "Wrong number of arguments"
+        return false
+    end
+    arguments.each do |argument|
+        if !argument.scan(/\d/).any?
+            puts "#{argument} is a wrong argument"
+            return false
+        end
+    end
+    return true
 end
 
-# Vérification des fichiers
-files_to_check.each do |file_name|
-  if file_exists?(file_name)
-    puts "#{file_name} : success".green
-    system("ruby #{file_name} 1 2 3 4 5")
-  else
-    puts "#{file_name} : failure".red
-  end
+if $PROGRAM_NAME == __FILE__
+    check_arguments(ARGV) ? (p my_quick_sort(ARGV.map(&:to_i))) : exit(1)
 end
