@@ -1,4 +1,4 @@
-# Créez un programme qui ajoute à une liste d’entiers triée un nouvel entier tout en gardant la liste triée dans l’ordre croissant. Le dernier argument est l’élément à ajouter.
+#Créez un programme qui supprime d’un tableau tous les éléments qui ne contiennent pas une autre chaîne de caractères.
 
 def filtrer_elements(array, substring)
   filtered_array = array.select { |element| element.downcase.include?(substring.downcase) }
