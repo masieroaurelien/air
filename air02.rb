@@ -1,34 +1,30 @@
 # Créez un programme qui transforme un tableau de chaînes de caractères en une seule chaîne de caractères. Espacés d’un séparateur donné en dernier argument au programme.
 
-def concatener(listgroup, separateur)
-  if listgroup.nil? || separateur.nil?
-    puts "Error"
-    return
-  end
+def check_number_of_arguments(arguments)
+    if arguments.size < 3
+        puts "Wrong number of arguments"
+        return false
+    end
 
-  if ARGV.length < 3
-    puts "Error"
-    return
-  end
-
-  result = listgroup.join(separateur)
-
-  return result
-
-#  result.each do |element|
-#    puts element.join
-#  end
-
+    return true
 end
 
-cli = ARGV
-listgroup = cli.slice(0, cli.length - 1)
-separateur = ARGV[-1].to_s
+def give_the_array_and_the_separator(array)
+    @last_argument = array[array.size - 1]
+    array.pop()
+    @array_of_arguments = array
+end
 
-result = concatener(listgroup, separateur)
-
-puts result
+def concat_array_of_strings(array_of_strings, separator)
+    i = 0
+    sentence = ""
+    while i < array_of_strings.size
+        sentence = sentence + array_of_strings[i] + separator
+        i += 1
+    end
+    return sentence
+end
 
 if $PROGRAM_NAME == __FILE__
-    check_arguments(ARGV) ? (p my_quick_sort(ARGV.map(&:to_i))) : exit(1)
+    check_number_of_arguments(ARGV) ? (give_the_array_and_the_separator(ARGV) ? (puts concat_array_of_strings(@array_of_arguments, @last_argument)) : exit): exit(1)
 end

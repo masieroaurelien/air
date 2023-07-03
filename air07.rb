@@ -1,32 +1,43 @@
 # Créez un programme qui ajoute à une liste d’entiers triée un nouvel entier tout en gardant la liste triée dans l’ordre croissant. Le dernier argument est l’élément à ajouter.
 
-def ajouter_element(liste, nouvel_element)
-  index = 0
-  while index < liste.length && nouvel_element > liste[index]
-    index += 1
-  end
-  liste.insert(index, nouvel_element)
-  return liste
+def sorted_insert(array, new_element)
+    i = 0
+    while i < array.length - 1
+        if new_element.to_i > array[i].to_i
+            if new_element.to_i < array[i + 1].to_i
+                array.insert(i + 1, new_element)
+                break
+            else
+                i += 1
+            end
+        else
+            array.insert(i, new_element)
+            break
+        end
+    end
+    return array
 end
 
-# Récupérer les arguments depuis la ligne de commande
-arguments = ARGV
+def give_values(inputs)
+    @last_elemnent = inputs[inputs.size - 1]
+    inputs.pop
+    @inputs = inputs
+end
 
-# Vérifier si au moins deux arguments ont été fournis
-if arguments.length >= 2
-  # Vérifier si tous les arguments sont des entiers
-  if arguments[0..].all? { |arg| arg.match?(/^\d+$/) }
-    liste = arguments[0...-1].map(&:to_i)  # Convertir les arguments en entiers
-    nouvel_element = arguments.last.to_i  # Convertir le dernier argument en entier
-    liste = ajouter_element(liste, nouvel_element)
-    puts liste.join(" ")  # Afficher la liste mise à jour
-  else
-    puts "Erreur : Veuillez fournir uniquement des entiers dans la liste."
-  end
-else
-  puts "Erreur : Veuillez fournir au moins deux arguments (une liste d'entiers triée et un nouvel entier à ajouter)."
+def check_arguments(arguments)
+    if arguments.size < 3
+        puts "wrong number of arguments"
+        return false
+    end
+    arguments.each do |arg|
+        if !arg.scan(/\d/).any?
+            puts "Wrong argument"
+            return false
+        end
+    end
+    return true
 end
 
 if $PROGRAM_NAME == __FILE__
-    check_arguments(ARGV) ? (p my_quick_sort(ARGV.map(&:to_i))) : exit(1)
+    check_arguments(ARGV) ? (give_values(ARGV) ? (p sorted_insert(@inputs, @last_elemnent)) : exit) : exit(1)
 end

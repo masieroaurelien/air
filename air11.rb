@@ -1,24 +1,31 @@
 # Afficher un escalier constitué d’un caractère et d’un nombre d’étages donné en paramètre.
 
-def afficher_escalier(caractere, nombre_etages)
-  espace = " "
-
-  if caractere != nil && caractere.length == 1 && nombre_etages != nil
-    nombre_etages = nombre_etages.to_i
-    for etage in 1..nombre_etages
-      ligne = espace * (nombre_etages - etage) + caractere * (2 * etage - 1)
-      puts ligne
+def draw_pyramid(character, number)
+    n_white_space = number.to_i - 1
+    n_characters = 1
+    i = number.to_i
+    container  = []
+    while i > 0
+        container.push([' '].cycle(n_white_space).to_a.join('') + [character].cycle(n_characters).to_a.join('') + [' '].cycle(n_white_space).to_a.join(''))
+        n_white_space -= 1
+        n_characters += 2
+        i -= 1
     end
-  else
-    puts "Error"
-  end
+    return container
 end
 
-# Exemple d'utilisation
-caractere = ARGV[0]
-nombre_etages = ARGV[1]
-afficher_escalier(caractere, nombre_etages)
+def check_arguments(arguments)
+    if arguments.size != 2
+        puts "Wrong number of arguments"
+        return false
+    end
+    if !arguments[1].scan(/\d/).any?
+        puts "The second argument is wrong"
+        return false
+    end
+    return true
+end
 
 if $PROGRAM_NAME == __FILE__
-    check_arguments(ARGV) ? (p my_quick_sort(ARGV.map(&:to_i))) : exit(1)
+    check_arguments(ARGV) ? (puts draw_pyramid(ARGV[0], ARGV[1])) : exit(1)
 end

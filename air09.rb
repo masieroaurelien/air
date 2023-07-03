@@ -1,29 +1,19 @@
 # Créez un programme qui décale tous les éléments d’un tableau vers la gauche. Le premier élément devient le dernier à chaque rotation.
 
-def rotation(array)
-  if array.is_a?(Array)
-
-    if array.length > 0
-
-      first_element = array.shift
-      array.push(first_element)
-
-      return array
-    else
-      puts "Error: Le tableau est vide"
-      exit
-    end
-  else
-    puts "Error: Argument invalide"
-    exit
-  end
+def my_rotation(array)
+    first_to_last = array.shift
+    array.push(first_to_last)
+    return array
 end
 
-array = ARGV
-
-
-puts rotation(array).join(' ')
+def check_arguments(arguments)
+    if arguments.size < 2
+        puts "Not enough arguments"
+        return false
+    end
+    return true
+end
 
 if $PROGRAM_NAME == __FILE__
-    check_arguments(ARGV) ? (p my_quick_sort(ARGV.map(&:to_i))) : exit(1)
+    check_arguments(ARGV) ? (puts my_rotation(ARGV)) : exit(1)
 end

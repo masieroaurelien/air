@@ -1,28 +1,33 @@
 # Créez un programme qui est capable de reconnaître et de faire une opération (addition ou soustraction) sur chaque entier d’une liste.
 
-def effectuer_operation(liste, operation)
-  # Vérifier si l'opération est une addition ou une soustraction
-  if operation >= 0
-    liste.map! { |n| n.to_i + operation }  # Effectuer l'addition sur chaque élément de la liste
-  else
-    liste.map! { |n| n.to_i - operation.abs }  # Effectuer la soustraction sur chaque élément de la liste
-  end
-
-  print liste.join(" ")  # Afficher les résultats sans saut de ligne
+def check_arguments(arguments)
+    if arguments.size < 2
+        puts "Wrong number of arguments"
+        return false
+    end
+    arguments.each do |arg|
+        if !arg.scan(/\d/).any?
+            puts "Wrong argument"
+            return false
+        end
+    end
+    return true
 end
 
-# Récupérer les arguments depuis la ligne de commande
-arguments = ARGV
+def put_result_of_operation(array, operator)
+    result = []
+    array.each do |numbers|
+        result.push(numbers.to_i + operator.to_i)
+    end
+    return result
+end
 
-# Vérifier si au moins deux arguments ont été fournis
-if arguments.length >= 2
-  liste = arguments[0...-1]  # Récupérer tous les arguments sauf le dernier
-  operation = arguments.last.to_i  # Récupérer l'opération en tant que dernier argument et le convertir en entier
-  effectuer_operation(liste, operation)
-else
-  puts "Erreur : Veuillez fournir au moins deux arguments (des entiers et une opération)."
+def give_the_array_and_the_operator(array)
+    @last_argument = array[array.size - 1]
+    array.pop()
+    @array_of_numbers = array
 end
 
 if $PROGRAM_NAME == __FILE__
-    check_arguments(ARGV) ? (p my_quick_sort(ARGV.map(&:to_i))) : exit(1)
+    check_arguments(ARGV) ? (give_the_array_and_the_operator(ARGV) ? (p put_result_of_operation(@array_of_numbers, @last_argument)) : exit) : exit(1)
 end

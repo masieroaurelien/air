@@ -1,16 +1,27 @@
 #Créez un programme qui retourne la valeur d’une liste qui n’a pas de paire.
 
-def valeur_sans_paire(liste)
-  return [] if liste.length.even?
+def check_number_of_arguments(arguments)
+    if arguments.size < 3
+        puts "Wrong number of arguments"
+        return false
+    end
 
-  liste. select {|element|liste.count(element) == 1 }
+    return true
 end
 
-liste = ARGV.map(&:to_i)
-values = valeur_sans_paire(liste)
-
-puts values. join('')
+def puts_the_intruders(array)
+    i = 0
+    sorted_array = array.sort
+    while i < array.length
+        if sorted_array[i] != sorted_array[i+1]
+            return sorted_array[i]
+            i += 1
+        else
+            i += 2
+        end
+    end
+end
 
 if $PROGRAM_NAME == __FILE__
-    check_arguments(ARGV) ? (p my_quick_sort(ARGV.map(&:to_i))) : exit(1)
-end
+    check_number_of_arguments(ARGV) ? (puts puts_the_intruders(ARGV)) : exit(1)
+end    

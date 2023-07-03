@@ -8,21 +8,37 @@ ma_fonction(string_à_couper, string_séparateur) { // syntaxe selon votre langa
 }
 =end
 
-def ma_fonction(string_a_couper, string_separateur)
-  if string_a_couper.nil? || string_separateur.nil?
-    puts "error"
-    exit
-  end
+def puts_splited_string(string_à_couper, string_séparateur)
+    i = 0
+    new_word_split = ""
+    array = []
 
-  tableau = string_a_couper.split(/#{Regexp.escape(string_separateur)}/)
+    while i < string_à_couper.length
+        if string_à_couper[i] == string_séparateur
+            array.push(new_word_split)
+            new_word_split = ""
+            i += 1
+        else
+            new_word_split = new_word_split + string_à_couper[i]
+            if i == string_à_couper.length - 1
+                array.push(new_word_split)
+            end
+            i += 1
+        end
+    end
 
-  tableau.each do |element|
-    puts element
-  end
+    return array
 end
 
-ma_fonction(ARGV[0], ' ')
+def check_number_of_arguments(arguments)
+    if arguments.size != 2
+        puts "Wrong number of arguments"
+        return false
+    end
+
+    return true
+end
 
 if $PROGRAM_NAME == __FILE__
-    check_arguments(ARGV) ? (p my_quick_sort(ARGV.map(&:to_i))) : exit(1)
+    check_number_of_arguments(ARGV) ? (puts puts_splited_string(ARGV[0], ARGV[1])) : exit(1)
 end
