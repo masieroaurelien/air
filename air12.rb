@@ -1,33 +1,28 @@
 # Créez un programme qui trie une liste de nombres. Votre programme devra implémenter l’algorithme du tri rapide (QuickSort).
 
-def quick_sort(arr)
-  return arr if arr.length < 1
-
-  pivot = arr.sample
-  less_than_pivot = arr.select { |num| num < pivot }
-  equal_to_pivot = arr.select { |num| num == pivot }
-  greater_than_pivot = arr.select { |num| num > pivot }
-
-  quick_sort(less_than_pivot) + equal_to_pivot + quick_sort(greater_than_pivot)
-end
-
-def validate_integer_arguments(args)
-  args.each do |arg|
-    unless arg.to_i.to_s == arg
-      puts "Error"
-      exit 1
+def my_quick_sort(array)
+    if array.size > 1
+        pivot = array.pop
+        left, right = array.partition {|num| num < pivot}
+        array = my_quick_sort(left) + [pivot] + my_quick_sort(right)
     end
-  end
+    return array
 end
 
-# Vérification des arguments
-validate_integer_arguments(ARGV)
+def check_arguments(arguments)
+    if arguments.size < 1
+        puts "Wrong number of arguments"
+        return false
+    end
+    arguments.each do |argument|
+        if !argument.scan(/\d/).any?
+            puts "#{argument} is a wrong argument"
+            return false
+        end
+    end
+    return true
+end
 
-# Conversion des arguments en entiers
-numbers = ARGV.map(&:to_i)
-
-# Tri des nombres en utilisant le QuickSort
-sorted_numbers = quick_sort(numbers)
-
-# Affichage des nombres triés
-puts sorted_numbers.join(' ')
+if $PROGRAM_NAME == __FILE__
+    check_arguments(ARGV) ? (p my_quick_sort(ARGV.map(&:to_i))) : exit(1)
+end
