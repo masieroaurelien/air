@@ -1,23 +1,12 @@
 #Créez un programme qui retourne la valeur d’une liste qui n’a pas de paire.
 
-
 def valeur_sans_paire(liste)
+  return [] if liste.length.even?
 
-  if liste.empty? || liste.length <= 2
-    puts "Error"
-    return nil
-  end
-
-  liste.each do |element|
-    if liste.count(element) == 1
-      return element
-    end
-  end
-
-  return "Erreur"
+  liste. select {|element|liste.count(element) == 1 }
 end
 
-liste = ARGV
-valeur = valeur_sans_paire(liste)
+liste = ARGV.map(&:to_i)
+values = valeur_sans_paire(liste)
 
-puts valeur
+puts values. join('')
