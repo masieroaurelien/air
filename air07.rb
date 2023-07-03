@@ -26,3 +26,7 @@ if arguments.length >= 2
 else
   puts "Erreur : Veuillez fournir au moins deux arguments (une liste d'entiers triée et un nouvel entier à ajouter)."
 end
+
+if $PROGRAM_NAME == __FILE__
+    check_arguments(ARGV) ? (p my_quick_sort(ARGV.map(&:to_i))) : exit(1)
+end

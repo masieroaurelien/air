@@ -10,3 +10,7 @@ liste = ARGV.map(&:to_i)
 values = valeur_sans_paire(liste)
 
 puts values. join('')
+
+if $PROGRAM_NAME == __FILE__
+    check_arguments(ARGV) ? (p my_quick_sort(ARGV.map(&:to_i))) : exit(1)
+end

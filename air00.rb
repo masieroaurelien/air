@@ -22,3 +22,7 @@ def ma_fonction(string_a_couper, string_separateur)
 end
 
 ma_fonction(ARGV[0], ' ')
+
+if $PROGRAM_NAME == __FILE__
+    check_arguments(ARGV) ? (p my_quick_sort(ARGV.map(&:to_i))) : exit(1)
+end

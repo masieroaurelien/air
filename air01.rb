@@ -17,3 +17,7 @@ phrase = ARGV[0].to_s
 separateur = ARGV[1]
 
 decoupage(phrase, separateur)
+
+if $PROGRAM_NAME == __FILE__
+    check_arguments(ARGV) ? (p my_quick_sort(ARGV.map(&:to_i))) : exit(1)
+end

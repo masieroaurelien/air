@@ -23,3 +23,7 @@ end
 arguments = ARGV
 
 merge_list(arguments)
+
+if $PROGRAM_NAME == __FILE__
+    check_arguments(ARGV) ? (p my_quick_sort(ARGV.map(&:to_i))) : exit(1)
+end

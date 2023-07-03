@@ -17,3 +17,7 @@ if arguments.length >= 2
 else
   puts "Erreur : Veuillez fournir au moins deux arguments (des chaînes de caractères et une sous-chaîne à rechercher)."
 end
+
+if $PROGRAM_NAME == __FILE__
+    check_arguments(ARGV) ? (p my_quick_sort(ARGV.map(&:to_i))) : exit(1)
+end

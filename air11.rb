@@ -18,3 +18,7 @@ end
 caractere = ARGV[0]
 nombre_etages = ARGV[1]
 afficher_escalier(caractere, nombre_etages)
+
+if $PROGRAM_NAME == __FILE__
+    check_arguments(ARGV) ? (p my_quick_sort(ARGV.map(&:to_i))) : exit(1)
+end
