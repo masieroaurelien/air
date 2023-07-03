@@ -1,11 +1,5 @@
 # Créez un programme qui affiche le contenu d’un fichier donné en argument.
 
-=begin
-fichier = ARGV
-
-system("cat #{fichier}")
-=end
-
 def afficher_contenu_fichier(fichier)
   if File.exist?(fichier)
 
